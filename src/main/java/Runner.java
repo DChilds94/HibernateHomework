@@ -28,6 +28,8 @@ public class Runner {
         Book book2 = new Book("The Lord of the Rings", "JRR Tolkein");
         DBBook.save(book2);
 
+        DBBook.delete(book2);
+
         List<Book> books = DBBook.getBooks();
 
 
