@@ -55,4 +55,18 @@ public class DBBook {
         }
     }
 
+    public static void update(Book book){
+        session = HibernateUtil.getSessionfactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.update(book);
+            transaction.commit();
+        } catch (HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 }

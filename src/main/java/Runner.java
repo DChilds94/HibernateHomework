@@ -30,6 +30,9 @@ public class Runner {
 
         DBBook.delete(book2);
 
+        book1.setTitle("The Silkworm");
+        DBBook.update(book1);
+
         List<Book> books = DBBook.getBooks();
 
 
