@@ -1,7 +1,9 @@
 package db;
 
+import models.Author;
 import models.Book;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -68,5 +70,23 @@ public class DBBook {
             session.close();
         }
     }
+
+    public static Book find(int id){
+        session = HibernateUtil.getSessionfactory().openSession();
+        Book result = null;
+        try {
+            String hql = "from Book where id = :id";
+            Query query = session.createQuery(hql);
+            query.setInteger("id", id);
+            result = (Book)query.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+
 
 }
