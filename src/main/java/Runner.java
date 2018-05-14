@@ -12,7 +12,11 @@ public class Runner {
         Author author2 = new Author("JRR Tolkein", "The Lord of the Rings");
         DBAuthor.save(author2);
 
+        author2.setName("Frodo Baggins");
+        DBAuthor.update(author2);
+
         DBAuthor.delete(author2);
+
 
         List<Author> authors = DBAuthor.getAuthors();
 

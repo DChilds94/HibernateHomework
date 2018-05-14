@@ -52,4 +52,18 @@ public class DBAuthor {
             session.close();
         }
     }
+
+    public static void update(Author author){
+        session = HibernateUtil.getSessionfactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.update(author);
+            transaction.commit();
+        } catch (HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }
