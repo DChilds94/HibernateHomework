@@ -1,6 +1,5 @@
 package db;
 
-import models.Author;
 import models.Book;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -19,6 +18,34 @@ public class DBBook {
         try {
             transaction = session.beginTransaction();
             session.save(book);
+            transaction.commit();
+        } catch (HibernateException e){
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Book> getBooks(){
+        session = HibernateUtil.getSessionfactory().openSession();
+        List<Book> results = null;
+        try{
+            String hql = "from Book";
+            results = session.createQuery(hql).list();
+        } catch (HibernateException e){
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
+    public static void delete(Book book){
+        session = HibernateUtil.getSessionfactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.delete(book);
             transaction.commit();
         } catch (HibernateException e){
             transaction.rollback();

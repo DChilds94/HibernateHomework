@@ -1,5 +1,7 @@
 import db.DBAuthor;
+import db.DBBook;
 import models.Author;
+import models.Book;
 
 import java.util.List;
 
@@ -19,6 +21,15 @@ public class Runner {
 
 
         List<Author> authors = DBAuthor.getAuthors();
+
+        Book book1 = new Book("The Cuckoo's Calling", "Robert Galbraith");
+        DBBook.save(book1);
+
+        Book book2 = new Book("The Lord of the Rings", "JRR Tolkein");
+        DBBook.save(book2);
+
+        List<Book> books = DBBook.getBooks();
+
 
     }
 }
