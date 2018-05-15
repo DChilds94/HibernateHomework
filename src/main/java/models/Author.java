@@ -1,21 +1,24 @@
 package models;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.Set;
 
+@Entity
+@Table(name="authors")
 public class Author {
 
     private String name;
-    private String book;
+    private Set<Book> books;
     private int id;
 
-    public Author(String name, String book) {
+    public Author(String name) {
         this.name = name;
-        this.book = book;
+
     }
 
     public Author() {
     }
-
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -23,15 +26,17 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getBook() {
-        return book;
+    @OneToMany(mappedBy = "author")
+    public Set<Book> getBooks() {
+        return books ;
     }
 
-    public void setBook(String book) {
-        this.book = book;
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -1,5 +1,5 @@
-import db.DBAuthor;
-import db.DBBook;
+
+import db.DBHelper;
 import models.Author;
 import models.Book;
 
@@ -8,40 +8,42 @@ import java.util.List;
 public class Runner {
 
     public static void main(String[] args) {
-        Author author1 = new Author("Robert Galbraith", "The Cuckoo's Calling");
-        DBAuthor.save(author1);
+        Author author1 = new Author("Robert Galbraith");
+        DBHelper.save(author1);
 
-        Author author2 = new Author("JRR Tolkien", "The Lord of the Rings");
-        DBAuthor.save(author2);
+        Author author2 = new Author("JRR Tolkien");
+        DBHelper.save(author2);
 
         author2.setName("Frodo Baggins");
-        DBAuthor.update(author2);
+        DBHelper.save(author2);
 
-        Author foundAuthor = DBAuthor.find(author2.getId());
-
-        DBAuthor.delete(author2);
+        Author foundAuthor = DBHelper.find(Author.class, author2.getId());
 
 
 
 
-        List<Author> authors = DBAuthor.getAuthors();
 
-        Book book1 = new Book("The Cuckoo's Calling", "Robert Galbraith");
-        DBBook.save(book1);
 
-        Book book2 = new Book("The Lord of the Rings", "JRR Tolkien");
-        DBBook.save(book2);
+        List<Author> authors = DBHelper.getAll(Author.class);
 
-        Book foundBook = DBBook.find(book2.getId());
+        Book book1 = new Book("The Cuckoo's Calling", author1);
+        DBHelper.save(book1);
 
-        DBBook.delete(book2);
+        Book book2 = new Book("The Lord of the Rings", author2);
+        DBHelper.save(book2);
+
+        Book foundBook = DBHelper.find(Book.class, book2.getId());
+
+
 
         book1.setTitle("The Silkworm");
-        DBBook.update(book1);
+        DBHelper.save(book1);
 
-        List<Book> books = DBBook.getBooks();
+        List<Book> books = DBHelper.getAll(Book.class);
 
+        DBHelper.delete(book2);
 
+        DBHelper.delete(author2);
 
 
 
